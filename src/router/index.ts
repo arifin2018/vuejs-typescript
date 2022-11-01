@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import PublicRegisterUser from '@/public/PublicRegisterUser.vue';
 
 const routes: Array<RouteRecordRaw> = [
-  // {
-  //   // path: '/',
-  //   // name: 'home',
-  //   // component: HomeView
-  // }
+  {
+    path: '/Register',
+    component: PublicRegisterUser
+  }
 ]
 
 const router = createRouter({
