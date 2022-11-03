@@ -24,6 +24,11 @@
 
 <script>
 import { ref } from "vue";
+import axios from 'axios';
+import {useRouter} from 'vue-router';
+import router from '@/router';
+
+
     export default {
         name:'PublicRegister',
         setup() {
@@ -32,15 +37,24 @@ import { ref } from "vue";
             const inputEmail = ref('');
             const inputPassword = ref('');
             const passwordConfirm = ref('');
-
-            let submit = () =>{
-                console.log({
-                    firstName : firstName.value,
-                    lastName : lastName.value,
-                    inputEmail : inputEmail.value,
-                    inputPassword : inputPassword.value,
-                    passwordConfirm : passwordConfirm.value,
+            
+            let submit = async () => {
+              try {
+                axios.post('http://backend.test:8080/api/auth-register',{
+                  "first_name":firstName.value,
+                  "last_name":lastName.value,
+                  "email":inputEmail.value,
+                  "password":inputPassword.value,
+                  "password_confirm":passwordConfirm.value,
+                  "role_id":1
                 });
+              } catch (error) {
+                console.log(error);
+              }
+              await router.push('/Login');
+
+
+                
             }
 
             return {
