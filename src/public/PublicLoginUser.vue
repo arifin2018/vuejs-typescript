@@ -3,10 +3,10 @@
         <h1 class="h3 mb-3 font-weight-normal">Please Sign in</h1>
 
         <label for="Email" class="sr-only">Email Name</label>
-        <input type="text" id="Email" class="form-control" placeholder="Email Name" required autofocus  v-model="Email">
+        <input type="text" id="Email" class="form-control" placeholder="Email Name" required autofocus  v-model="email">
 
         <label for="Password" class="sr-only">Password</label>
-        <input type="Password" id="Password" class="form-control" placeholder="Password" required v-model="Password">
+        <input type="Password" id="Password" class="form-control" placeholder="Password" required v-model="password">
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
         
@@ -16,6 +16,7 @@
 <script>
 import { ref } from "vue";
 import axios from 'axios';
+import router from '@/router';
 
 export default {
     name: 'PublicLoginUser',
@@ -24,12 +25,14 @@ export default {
         const password = ref('');
 
         const submit = async () => {
-            const response = await axios.post('http://backend.test:8080/api/auth',{
+            console.log('log axios');
+            const response = await axios.post('auth',{
                 email: email.value,
                 password:password.value
             })
-
-            console.log(response);
+          localStorage.setItem('token', response.data.access_token);
+          router.push('/');
+          console.log(response);
         }
 
         return {

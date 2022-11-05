@@ -25,7 +25,6 @@
 <script>
 import { ref } from "vue";
 import axios from 'axios';
-import {useRouter} from 'vue-router';
 import router from '@/router';
 
 
@@ -40,7 +39,7 @@ import router from '@/router';
             
             let submit = async () => {
               try {
-                axios.post('http://backend.test:8080/api/auth-register',{
+                axios.post('auth-register',{
                   "first_name":firstName.value,
                   "last_name":lastName.value,
                   "email":inputEmail.value,
