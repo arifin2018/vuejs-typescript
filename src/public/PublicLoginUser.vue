@@ -25,14 +25,19 @@ export default {
         const password = ref('');
 
         const submit = async () => {
+          try {
             console.log('log axios');
             const response = await axios.post('auth',{
                 email: email.value,
                 password:password.value
             })
           localStorage.setItem('token', response.data.access_token);
+          axios.defaults.headers['Authorization'] = 'Bearer ' + response.data.access_token;
+          } catch (error) {
+            console.log('failed login');
+          }
+
           router.push('/');
-          console.log(response);
         }
 
         return {

@@ -1,22 +1,28 @@
 <template>
-    <NavItem />
+    <NavItem :user="user" />
 
     <div class="container-fluid">
         <div class="row">
             <MenuItem />
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-                <router-view/>
+                <router-view />
             </main>
         </div>
     </div>
 </template>
 
 <script>
-    import MenuItem from "@/components/MenuItem.vue";
-    import NavItem from "@/components/NavItem.vue";
+    import MenuItem from "@/secure/components/MenuItem.vue";
+    import NavItem from "@/secure/components/NavItem.vue";
     import axios from 'axios';
-    import {onMounted} from 'vue';
+    import {
+        onMounted,
+        ref
+    } from 'vue';
+    import {
+        useRouter
+    } from 'vue-router';
 
     export default {
         name: "SecureYield",
@@ -24,21 +30,27 @@
             MenuItem: MenuItem,
             NavItem
         },
-        setup(){
-          onMounted(async () =>{
-            const response = await axios.get('user');
-            console.log(response);
-          });
+        setup() {
+            const router = useRouter();
+            let user = ref('');
+            onMounted(async () => {
+                try {
+                    const response = await axios.get('profile');
+                    user.value = response.data.data;
+                } catch (error) {
+                    await router.push('/login');
+                }
+            });
+
+            return {
+                user
+            };
         }
-        
     }
 </script>
 
 <style scoped>
-
-body {
-  font-size: .875rem;
-}
-
-
+    body {
+        font-size: .875rem;
+    }
 </style>

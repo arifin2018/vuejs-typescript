@@ -3,10 +3,12 @@
         <div class="sidebar-sticky">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">
-                        <span data-feather="home"></span>
-                        Dashboard <span class="sr-only">(current)</span>
-                    </a>
+                    <router-link to="/dashboard" active-class="active" class="nav-link">
+                        Dashboard
+                    </router-link>
+                    <router-link to="/users" class="nav-link" active-class="active">
+                        Users
+                    </router-link>
                 </li>
             </ul>
         </div>
@@ -29,6 +31,7 @@
 
 .sidebar {
   position: fixed;
+  top: 5rem;
   bottom: 0;
   left: 0;
   z-index: 100; /* Behind the navbar */

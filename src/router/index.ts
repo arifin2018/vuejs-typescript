@@ -3,6 +3,7 @@ import PublicRegisterUser from '@/public/PublicRegisterUser.vue';
 import PublicLoginUser from '@/public/PublicLoginUser.vue';
 import SecureYield from '@/secure/SecureYield.vue';
 import DashboardSecure from '@/secure/Dashboard/DashboardSecure.vue';
+import Users from '@/secure/Users/Users.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -14,12 +15,12 @@ const routes: Array<RouteRecordRaw> = [
     component: PublicLoginUser
   },
   {
-    path: '/',
+    path: '',
     component: SecureYield,
     children:[
-      {
-        path: '', component: DashboardSecure
-      }
+      {path: '', redirect:'dashboard'},
+      {path: '/dashboard', component: DashboardSecure},
+      {path: '/users', component: Users}
     ]
 
   }
